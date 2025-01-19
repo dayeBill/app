@@ -182,6 +182,7 @@
     "@dcloudio/uni-automator": "3.0.0-4020420240722002",
     "@dcloudio/uni-cli-shared": "3.0.0-4020420240722002",
     "@dcloudio/uni-stacktracey": "3.0.0-4020420240722002",
+    "@dcloudio/uni-uts-v1": "3.0.0-4020420240722002",
     "@dcloudio/vite-plugin-uni": "3.0.0-4020420240722002",
     "@iconify/json": "^2.2.254",
     "@mini-types/alipay": "^3.0.14",

@@ -69,7 +69,20 @@ export default defineManifestConfig({
   'quickapp': {},
   /* 小程序特有相关 */
   'mp-alipay': {
+    appid: '2021005116657743',
+    setting: {
+      urlCheck: false,
+      es6: true,
+      minified: true,
+      postcss: true,
+      ignoreDevUnusedFiles: false,
+      ignoreUploadUnusedFiles: false,
+    },
     usingComponents: true,
+    lazyCodeLoading: 'requiredComponents',
+    darkmode: true,
+    themeLocation: 'theme.json',
+    libVersion: '3.4.3',
   },
   'mp-baidu': {
     usingComponents: true,

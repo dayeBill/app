@@ -3,7 +3,9 @@
 </script>
 
 <template>
-  <div class="px-4 py-10 text-center text-gray-700 font-sans" />
+  <div class="px-4 py-10 text-center text-gray-700 font-sans">
+    测试这个是什么东东
+  </div>
 </template>
 
 <route  lang="json">

@@ -13,14 +13,16 @@ export default {
       // 无需每次都验证
       // token 是否过期
       // 直接调用用户信息获取
-      UserInfoApi().then(() => {
-      }).catch((error) => {
+      try {
+        await UserInfoApi()
+      }
+      catch (error) {
+        // 401 错误
         if (error.response.status === 401) {
-          // 401 错误
           // 清除 Token
           auth.clearToken()
         }
-      })
+      }
     }
 
     if (!auth.token) {
@@ -32,6 +34,9 @@ export default {
       // #endif
 
       // H5 登录流程
+      // #ifdef H5
+      await this.h5Login()
+      // #endif
     }
   },
 
@@ -40,25 +45,41 @@ export default {
     const accountInfo = uni.getAccountInfoSync()
     const appId = accountInfo.miniProgram.appId
 
-    uni.getProvider({
-      service: 'oauth',
-      success(res) {
-        const provider = res.provider[0]
+    try {
+      const res = await uni.getProvider({ service: 'oauth' })
+      const provider = res.provider[0]
 
-        uni.login({
-          provider, // 使用微信登录
-          success(loginRes) {
-            loginApi('socialite', {
-              client_id: appId,
-              provider: res.provider[0],
-              code: loginRes.code,
-            }, true).then((response) => {
-              auth.setToken(response?.data?.data?.access_token)
-            })
-          },
-        })
-      },
-    })
+      const loginRes = await uni.login({ provider })
+      const response = await loginApi('socialite', {
+        client_id: appId,
+        provider,
+        code: loginRes.code,
+      }, true)
+      auth.setToken(response?.data?.data?.access_token)
+    }
+    catch (error) {
+      console.error('小程序登录失败', error)
+    }
+  },
+
+  async h5Login() {
+    // H5 登录逻辑
+    // 这里假设 H5 登录逻辑与小程序类似，需要根据实际情况调整
+    const auth = useAuthStore()
+    try {
+      const res = await uni.getProvider({ service: 'oauth' })
+      const provider = res.provider[0]
+
+      const loginRes = await uni.login({ provider })
+      const response = await loginApi('socialite', {
+        provider,
+        code: loginRes.code,
+      }, true)
+      auth.setToken(response?.data?.data?.access_token)
+    }
+    catch (error) {
+      console.error('H5 登录失败', error)
+    }
   },
 
 }

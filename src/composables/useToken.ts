@@ -1,4 +1,4 @@
-import { useStorageAsync } from '@uni-helper/uni-use'
+import { useStorageSync } from '@uni-helper/uni-use'
 
 // import type { RemovableRef } from '@vueuse/core'
 import type { RemovableRef } from '@vueuse/core'
@@ -11,6 +11,6 @@ import { DefaultToken, TokenKey } from '@/constants'
  * @return {RemovableRef<string>} the token value
  */
 export function useToken(initialToken: string = DefaultToken): RemovableRef<string> {
-  const token = useStorageAsync(TokenKey, initialToken)
+  const token = useStorageSync(TokenKey, initialToken)
   return token
 }

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import login from '@/common/login'
 import { useAppStore } from '@/store'
 
 const { darkMode } = storeToRefs(useAppStore())
@@ -47,11 +46,6 @@ onShow(async () => {
       break // 找到匹配项后立即停止循环
     }
   }
-
-  // #ifdef MP
-  console.log('111')
-  login.login()
-  // #endif
 })
 
 function changeTab(_: any, index: number | string) {

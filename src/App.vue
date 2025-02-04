@@ -1,4 +1,5 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+import login from '@/common/login'
 import { useAppStore } from '@/store'
 
 const { darkMode, statusBarHeight, menuButtonBounding } = storeToRefs(useAppStore())
@@ -32,6 +33,9 @@ onLaunch(() => {
   // #endif
 })
 onShow(() => {
+  // #ifdef MP
+  login.login()
+  // #endif
 })
 onHide(() => {
 })

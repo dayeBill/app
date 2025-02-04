@@ -26,9 +26,7 @@ instance.interceptors.request.use((config) => {
   const authStore = useAuthStore()
   config.headers = {
     ...DefaultHeaders,
-    'token': authStore.token,
-    'X-Token': authStore.token,
-    'X-Access-Token': authStore.token,
+    Authorization: `Bearer ${authStore.token}`,
     ...config.headers,
   }
   return config

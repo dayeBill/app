@@ -16,19 +16,19 @@ const List = [
     name: 'home',
   },
   {
-    pagePath: 'pages/count/count',
+    pagePath: 'pages/contacts/index',
     text: '联系人',
     icon: 'people',
     name: 'contacts',
   },
   {
-    pagePath: 'pages/index/index',
+    pagePath: 'pages/events/index',
     text: '事件',
     icon: 'addfollow',
     name: 'events',
   },
   {
-    pagePath: 'pages/index/index',
+    pagePath: 'pages/my/index',
     text: '我的',
     icon: 'my',
     name: 'my',

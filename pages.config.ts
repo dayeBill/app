@@ -31,8 +31,16 @@ export default defineUniPages({
         text: '账单',
       },
       {
-        pagePath: 'pages/count/count',
+        pagePath: 'pages/contacts/index',
         text: '联系人',
+      },
+      {
+        pagePath: 'pages/events/index',
+        text: '事件',
+      },
+      {
+        pagePath: 'pages/my/index',
+        text: '我的',
       },
     ],
   },

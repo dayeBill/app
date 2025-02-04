@@ -4,15 +4,15 @@
 
 <template>
   <div class="px-4 py-10 text-center text-gray-700 font-sans">
-    首页
+    联系人
   </div>
 </template>
 
 <route  lang="json">
 {
   "style": {
-  "navigationStyle": "default",
-  "navigationBarTitleText": "首页"
+    "navigationStyle": "default",
+    "navigationBarTitleText": "联系人"
   }
 }
 </route>

@@ -9,5 +9,5 @@ export function login(provider: string, data: object, fallback_register: boolean
 }
 
 export function userInfo() {
-  return unInstance.post('/api/auth/info')
+  return unInstance.get('/api/auth/info')
 }

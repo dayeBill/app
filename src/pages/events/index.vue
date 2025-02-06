@@ -1,28 +1,22 @@
 <script lang="ts" setup>
-
+import ListView from '@/components/ListView.vue'
 </script>
 
 <template>
-  <div class="px-4 py-10 text-center text-gray-700 font-sans">
-    事件
-  </div>
+  <HeaderWrapper />
+  <ListView />
+  <nut-cell title="我是标题" desc="描述文字" />
 </template>
 
 <route  lang="json">
 {
   "style": {
-    "navigationStyle": "default",
+    "navigationStyle": "custom",
     "navigationBarTitleText": "Home"
   }
 }
 </route>
 
 <style scoped>
-.logo {
-  width: 100rpx;
-  height: 100rpx;
-  margin-top: 200rpx;
-  margin-bottom: 50rpx;
-  text-decoration: none;
-}
+
 </style>

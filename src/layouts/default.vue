@@ -19,9 +19,15 @@ const size = ref('24rpx')
 const List = [
   {
     pagePath: 'pages/index/index',
-    text: '账单',
+    text: '首页',
     icon: 'order',
     name: 'home',
+  },
+  {
+    pagePath: 'pages/bills/index',
+    text: '账单',
+    icon: 'order',
+    name: 'bill',
   },
   {
     pagePath: 'pages/contacts/index',
@@ -68,6 +74,7 @@ function changeTab(_: any, index: number | string) {
 <template>
   <nut-config-provider :theme="darkMode ? 'dark' : ''">
     <slot />
+    <nut-toast />
     <!-- 支付宝小程序自定义 tabbar需要特殊处理 -->
     <!-- #ifndef MP-ALIPAY -->
     <nut-tabbar

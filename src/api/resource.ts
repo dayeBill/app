@@ -1,27 +1,35 @@
 import { unInstance } from '@/service'
 
 export default class {
-  constructor(protected path: string) {
-
+  protected path: string = ''
+  protected request = unInstance
+  constructor(path: string | null = null) {
+    if (this.path !== null) {
+      this.path = path
+    }
   }
 
   index(query: object = {}) {
-    return unInstance.get(this.path, { params: query })
+    return this.request.get(this.path, { params: query })
   }
 
   find(id: string | number) {
-    return unInstance.get(`${this.path}/${id}`)
+    return this.request.get(`${this.path}/${id}`)
   }
 
   create(data: object = {}) {
-    return unInstance.post(this.path, data)
+    return this.request.post(this.path, data)
   }
 
   update(id: string | number, data: object = {}) {
-    return unInstance.put(`${this.path}/${id}`, data)
+    return this.request.put(`${this.path}/${id}`, data)
   }
 
   destroy(id: string | number) {
-    return unInstance.delete(`${this.path}/${id}`)
+    return this.request.delete(`${this.path}/${id}`)
+  }
+
+  options() {
+    return this.request.get(`${this.path}/options`)
   }
 }

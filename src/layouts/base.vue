@@ -68,6 +68,7 @@ function changeTab(_: any, index: number | string) {
 <template>
   <nut-config-provider :theme="darkMode ? 'dark' : ''">
     <slot />
+    <nut-toast />
   </nut-config-provider>
 </template>
 

@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import Resource from '@/api/resource'
 import { onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app'
-import { defineProps, onMounted, reactive } from 'vue'
+import { defineEmits, defineProps, onMounted, reactive } from 'vue'
 
 const props = defineProps({
   api: {
     type: String,
     default: '',
   },
-
 })
-
+defineEmits(['add'])
 const defaultQuery = {
   page: 1,
   per_page: 20,
@@ -27,15 +26,14 @@ const data = reactive({
     page: 1,
     per_page: 20,
   },
-
   meta: {
-    lastPage: null,
+    last_page: null,
     page: null,
     pageSize: 20,
     total: 0,
   },
-
 })
+
 onPullDownRefresh(() => {
   init()
   uni.stopPullDownRefresh()
@@ -54,10 +52,9 @@ onReachBottom(() => {
 
   if (data.bottomLoading === true)
     return
-
   data.bottomLoading = true
   data.query.page = data.query.page + 1
-  getList(() => {
+  getList().finally(() => {
     data.bottomLoading = false
   })
 })
@@ -67,37 +64,36 @@ function init() {
     return
   }
   data.initLoading = true
-  data.query = defaultQuery
-  data.items = []
-  console.log('init--', data.query)
-  getList(() => {
+  Object.assign(data.query, defaultQuery)
+  data.items.length = 0
+
+  getList().finally(() => {
     data.initLoading = false
   })
 }
 
-function getList(callback?: Function) {
+async function getList() {
   if (data.loading === true)
     return
   data.loading = true
-  const API = new Resource(props.api)
-  API.index(data.query).then((response) => {
-    data.items.push(...response.data.data)
-    data.meta.lastPage = response.data.meta.last_page
-    data.meta.page = response.data.meta.current_page
-    data.meta.pageSize = response.data.meta.per_page
-    data.meta.total = response.data.meta.total
-    // 如果当前页码
-    if (data.meta.page === data.meta.lastPage) {
-      data.hasMore = false
-    }
-    else {
-      data.hasMore = true
-    }
-  }).catch((error) => {
 
-  }).finally(() => {
-    data.loading = false
-    callback ? callback() : null
+  return new Promise(async (resolve, reject) => {
+    try {
+      const API = new Resource(props.api)
+      const response = await API.index(data.query)
+
+      data.items.push(...response.data.data)
+      Object.assign(data.meta, response.data.meta)
+      data.isNull = (data.meta.total === 0)
+      data.loading = false
+      data.hasMore = data.meta.current_page < data.meta.last_page
+
+      resolve(response)
+    }
+    catch (error) {
+      data.loading = false
+      reject(new Error('错误'))
+    }
   })
 }
 
@@ -118,7 +114,7 @@ onMounted(() => {
         搜索
       </template>
       <template #rightout>
-        <nut-icon name="uploader" />
+        <nut-icon name="uploader" @click="$emit('add')" />
       </template>
     </nut-searchbar>
   </nut-sticky>

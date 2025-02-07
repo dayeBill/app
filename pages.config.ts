@@ -28,6 +28,10 @@ export default defineUniPages({
     list: [
       {
         pagePath: 'pages/index/index',
+        text: '首页',
+      },
+      {
+        pagePath: 'pages/bills/index',
         text: '账单',
       },
       {

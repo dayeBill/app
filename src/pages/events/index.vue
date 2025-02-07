@@ -3,16 +3,26 @@ import ListView from '@/components/ListView.vue'
 </script>
 
 <template>
-  <HeaderWrapper />
-  <ListView />
-  <nut-cell title="我是标题" desc="描述文字" />
+  <ListView api="/api/bill/events">
+    <template #item="{ item, index }">
+      <nut-cell :title="item.subject">
+        <template #icon>
+          {{ item.type }}
+        </template>
+        <template #desc>
+          {{ item.event_date }}
+        </template>
+      </nut-cell>
+    </template>
+  </ListView>
 </template>
 
 <route  lang="json">
 {
   "style": {
-    "navigationStyle": "custom",
-    "navigationBarTitleText": "Home"
+    "navigationStyle": "default",
+    "navigationBarTitleText": "事件",
+    "enablePullDownRefresh":true
   }
 }
 </route>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Contacts as ResourceApi } from '@/api/contacts'
+import { Bills as ResourceApi } from '@/api/bills'
 import ListView from '@/components/ListView.vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { reactive } from 'vue'
@@ -15,15 +15,15 @@ onLoad(() => {
 })
 function toCreatePage() {
   uni.navigateTo({
-    url: '/pages/contacts/create',
+    url: '/pages/bills/create',
   })
 }
 </script>
 
 <template>
-  <ListView api="/api/bill/contacts" @add="toCreatePage">
+  <ListView api="/api/bill/bills" @add="toCreatePage">
     <template #item="{ item, index }">
-      <nut-cell :title="item.name">
+      <nut-cell :title="item.subject">
         <template #icon />
         <template #desc>
           {{ item.remarks }}
@@ -37,7 +37,7 @@ function toCreatePage() {
 {
 "style": {
 "navigationStyle": "default",
-"navigationBarTitleText": "联系人",
+"navigationBarTitleText": "账单",
 "enablePullDownRefresh":true
 }
 }

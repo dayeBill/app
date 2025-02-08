@@ -14,9 +14,9 @@ onLoad(() => {
     pageHelpers.eventTypes = response.data.data.eventTypes || []
   })
 })
+
 function title(item) {
   return [
-    item.bill_category,
     item.contact?.name,
     item.subject,
   ].join(' ')
@@ -25,6 +25,7 @@ function title(item) {
 
 <template>
   <ListView
+    name="bills"
     :api="API.getPath()"
     :create-action="{ path: '/pages/bills/create', icon: 'plus' }"
   >
@@ -32,24 +33,39 @@ function title(item) {
       <nut-cell>
         <template #icon>
           <nut-avatar
-            custom-color="rgb(245, 106, 0)" bg-color="rgb(253, 227, 207)"
             size="small"
+            custom-color="rgb(245, 106, 0)"
+            bg-color="rgb(253, 227, 207)"
           >
             {{ item.contact?.name || '-' }}
           </nut-avatar>
         </template>
         <template #title>
-          <p>{{ title(item) }}</p>
+          <p>
+            {{ title(item) }}
+          </p>
+          <p>
+            <nut-tag v-if="item.event" custom-color="#e9e9e9" text-color="#999999">
+              {{ item.bill_category }}
+            </nut-tag>
+            <nut-tag custom-color="#e9e9e9" text-color="#999999">
+              {{ item.bill_category }}
+            </nut-tag>
+          </p>
         </template>
         <template #desc>
-          <nut-price
-            :symbol="item.bill_type === 'income' ? '+' : '-'"
-            :price="item.amount_value"
-            :style="{ color: item.bill_type === 'income' ? '#121212' : '' }"
-            :need-symbol="true"
-          />
+          <p>
+            <nut-price
+              :symbol="item.bill_type === 'income' ? '+' : '-'"
+              :price="item.amount_value"
+              :style="{ color: item.bill_type === 'income' ? '#121212' : '' }"
+              :need-symbol="true"
+            />
+          </p>
+
           <p> {{ item.bill_time }} </p>
         </template>
+        <template #link />
       </nut-cell>
     </template>
   </ListView>

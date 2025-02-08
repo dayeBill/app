@@ -3,10 +3,10 @@ import EventListView from '@/components/business/events/EventListView.vue'
 </script>
 
 <template>
-  <EventListView />
+  <EventListView view-model="select" />
 </template>
 
-<route lang="json">
+<route  lang="json">
 {
 "layout":"base",
 "style": {

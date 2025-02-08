@@ -73,7 +73,9 @@ const formData = reactive({
   event_id: null,
   contact_id: null,
   contact: null,
+  event: null,
   contact_name: null,
+  event_name: null,
 
 })
 
@@ -83,12 +85,19 @@ const pageHelpers = reactive({
 })
 
 onLoad(() => {
-  uni.$on('list-view-select', (values) => {
-    console.log('list-view-select', values)
+  uni.$on('list-view-select:contacts', (values) => {
+    console.log('list-view-select:', values)
     formData.contact_id = values[0].id
     formData.contact_name = values[0].name
     formData.contact = values[0]
   })
+  uni.$on('list-view-select:events', (values) => {
+    console.log('list-view-select:', values)
+    formData.event_id = values[0].id
+    formData.event_name = values[0].subject
+    formData.event = values[0]
+  })
+
   new ResourceApi().options().then((response) => {
     pageHelpers.categories = response.data.data.categories
   })
@@ -97,6 +106,11 @@ onBackPress((options) => {
   console.log('onBackPress', options)
 })
 
+function toSelectEventsPage() {
+  uni.navigateTo({
+    url: '/pages/events/select',
+  })
+}
 function toSelectContactsPage() {
   uni.navigateTo({
     url: '/pages/contacts/select',
@@ -158,6 +172,13 @@ function toSelectContactsPage() {
           </nut-button>
         </template>
       </nut-input>
+    </nut-form-item>
+    <nut-form-item label="事件" prop="event_id">
+      <nut-input
+        v-model="formData.event_name"
+        class="nut-input-text" placeholder="请选择联系人"
+        readonly type="text" @click-input="toSelectEventsPage"
+      />
     </nut-form-item>
     <nut-form-item label="主题" prop="subject">
       <nut-input v-model="formData.subject" class="nut-input-text" placeholder="请输入名称" type="text" />

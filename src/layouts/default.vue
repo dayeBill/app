@@ -20,7 +20,7 @@ const List = [
   {
     pagePath: 'pages/index/index',
     text: '首页',
-    icon: 'order',
+    icon: 'home',
     name: 'home',
   },
   {

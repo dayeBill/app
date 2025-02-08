@@ -4,6 +4,9 @@ import { onLoad, onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app'
 import { defineEmits, defineProps, reactive, useSlots } from 'vue'
 
 const props = defineProps({
+  name: {
+    type: String,
+  },
   viewModel: {
     type: String,
     default: 'view',
@@ -45,6 +48,7 @@ const data = reactive({
   query: {
     page: 1,
     per_page: 20,
+    keyword: null,
   },
   meta: {
     last_page: null,
@@ -133,6 +137,11 @@ onLoad(() => {
   init()
 })
 
+function onSearch() {
+  console.log('搜索', data.query)
+  init()
+}
+
 function onCheckbox(value: any) {
   if (value.length > 0) {
     const values = []
@@ -140,8 +149,7 @@ function onCheckbox(value: any) {
     for (let i = 0; i < value.length; i++) {
       values.push(data.items.find(item => item.id === value[i]))
     }
-
-    uni.$emit('list-view-select', values)
+    uni.$emit(`list-view-select:${props.name}`, values)
     uni.navigateBack({
       delta: 1,
     })
@@ -152,13 +160,17 @@ function onCheckbox(value: any) {
 <template>
   <nut-loading-page :loading="data.initLoading" />
   <nut-sticky>
-    <nut-searchbar>
+    <nut-searchbar
+      v-model="data.query.keyword"
+      placeholder="搜索"
+      @search="onSearch"
+    >
       <template #leftin>
         <nut-icon name="search2" />
       </template>
       <template #rightin>
         <nut-divider direction="vertical" />
-        搜索
+        <span @click="onSearch">搜索</span>
       </template>
       <template #rightout>
         <nut-icon v-if="!createActionDisabled" name="uploader" @click="clickCreate" />

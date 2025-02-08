@@ -18,6 +18,7 @@ onLoad(() => {
 
 <template>
   <ListView
+    name="events"
     :api="API.getPath()"
 
     :create-action="{ path: '/pages/events/create', icon: 'plus' }"

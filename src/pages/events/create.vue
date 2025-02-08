@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { FormInst } from 'nutui-uniapp'
 import { Events } from '@/api/events'
+import { getCurrentDateFormatted } from '@/utils/date'
+
 import { onLoad } from '@dcloudio/uni-app'
 import { useToast } from 'nutui-uniapp/composables'
 import { defineEmits, reactive } from 'vue'
@@ -98,6 +100,8 @@ onLoad(() => {
       <nut-calendar
         v-model:visible="formConfig.event_date"
         :is-auto-back-fill="true"
+        :default-value="getCurrentDateFormatted()"
+        start-date="1970-01-01"
         @close="formConfig.event_date = false"
         @choose="(date) => formData.event_date = date[3]"
       />

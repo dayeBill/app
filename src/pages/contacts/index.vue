@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Contacts as ResourceApi } from '@/api/contacts'
-import ListView from '@/components/ListView.vue'
+import ContactsListView from '@/components/business/contacts/ContactsListView.vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { reactive } from 'vue'
 
@@ -13,27 +13,13 @@ onLoad(() => {
     pageHelpers.eventTypes = response.data.data.eventTypes
   })
 })
-function toCreatePage() {
-  uni.navigateTo({
-    url: '/pages/contacts/create',
-  })
-}
 </script>
 
 <template>
-  <ListView api="/api/bill/contacts" @add="toCreatePage">
-    <template #item="{ item, index }">
-      <nut-cell :title="item.name">
-        <template #icon />
-        <template #desc>
-          {{ item.remarks }}
-        </template>
-      </nut-cell>
-    </template>
-  </ListView>
+  <ContactsListView />
 </template>
 
-<route  lang="json">
+<route lang="json">
 {
 "style": {
 "navigationStyle": "default",

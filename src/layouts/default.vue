@@ -75,12 +75,13 @@ function changeTab(_: any, index: number | string) {
   <nut-config-provider :theme="darkMode ? 'dark' : ''">
     <slot />
     <nut-toast />
+    <nut-notify />
     <!-- 支付宝小程序自定义 tabbar需要特殊处理 -->
     <!-- #ifndef MP-ALIPAY -->
     <nut-tabbar
       v-model="activeIndex"
       :active-color="aColor" :size="size" :unactive-color="unColor"
-      bottom placeholder safe-area-inset-bottom @tab-switch="changeTab"
+      bottom safe-area-inset-bottom placeholder @tab-switch="changeTab"
     >
       <nut-tabbar-item
         v-for="(item, index) in List"

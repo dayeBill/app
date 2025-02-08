@@ -3,6 +3,7 @@ import { unInstance } from '@/service'
 export default class {
   protected path: string = ''
   protected request = unInstance
+
   constructor(path: string | null = null) {
     if (this.path !== null) {
       this.path = path
@@ -31,5 +32,9 @@ export default class {
 
   options() {
     return this.request.get(`${this.path}/options`)
+  }
+
+  getPath() {
+    return this.path
   }
 }

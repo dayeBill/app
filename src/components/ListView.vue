@@ -1,15 +1,35 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import Resource from '@/api/resource'
-import { onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app'
-import { defineEmits, defineProps, onMounted, reactive } from 'vue'
+import { onLoad, onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app'
+import { defineEmits, defineProps, reactive, useSlots } from 'vue'
 
 const props = defineProps({
+  viewModel: {
+    type: String,
+    default: 'view',
+  },
   api: {
     type: String,
     default: '',
   },
+  createActionDisabled: {
+    type: Boolean,
+    default: false,
+  },
+  createAction: {
+    type: Object,
+    default: () => {
+      return {
+        title: '新增',
+        icon: 'plus',
+        path: null,
+      }
+    },
+  },
 })
-defineEmits(['add'])
+
+const emit = defineEmits(['clickCreate'])
+const slots = useSlots()
 const defaultQuery = {
   page: 1,
   per_page: 20,
@@ -34,6 +54,10 @@ const data = reactive({
   },
 })
 
+const selects = reactive({
+  ids: [],
+})
+
 onPullDownRefresh(() => {
   init()
   uni.stopPullDownRefresh()
@@ -49,7 +73,6 @@ onReachBottom(() => {
     }, 1000)
     return
   }
-
   if (data.bottomLoading === true)
     return
   data.bottomLoading = true
@@ -69,6 +92,7 @@ function init() {
 
   getList().finally(() => {
     data.initLoading = false
+    selects.ids = []
   })
 }
 
@@ -97,9 +121,32 @@ async function getList() {
   })
 }
 
-onMounted(() => {
+function clickCreate() {
+  emit('clickCreate')
+  // 判断是否配置 路径 或者 调用回掉函数
+  uni.navigateTo({
+    url: props.createAction.path,
+  })
+}
+
+onLoad(() => {
   init()
 })
+
+function onCheckbox(value: any) {
+  if (value.length > 0) {
+    const values = []
+
+    for (let i = 0; i < value.length; i++) {
+      values.push(data.items.find(item => item.id === value[i]))
+    }
+
+    uni.$emit('list-view-select', values)
+    uni.navigateBack({
+      delta: 1,
+    })
+  }
+}
 </script>
 
 <template>
@@ -114,15 +161,24 @@ onMounted(() => {
         搜索
       </template>
       <template #rightout>
-        <nut-icon name="uploader" @click="$emit('add')" />
+        <nut-icon v-if="!createActionDisabled" name="uploader" @click="clickCreate" />
       </template>
     </nut-searchbar>
   </nut-sticky>
-  <view v-for="(item, index) in data.items" :key="index">
-    <slot name="item" :item="item" :index="index">
-      {{ item.id }}
-    </slot>
-  </view>
+  <nut-checkbox-group
+    ref="group"
+    v-model="selects.ids"
+    @change="onCheckbox"
+  >
+    <view v-for="(item, index) in data.items" :key="index" class="flex">
+      <nut-checkbox
+        v-if="viewModel === 'select'"
+        :label="item.id"
+        class="list-view-select"
+      />
+      <slot :index="index" :item="item" />
+    </view>
+  </nut-checkbox-group>
   <nut-divider v-if="data.bottomLoading">
     {{ data.bottomText }}
   </nut-divider>
@@ -130,5 +186,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
-
+.list-view-select{
+  margin-right: 0px;
+  margin-left: 10px;
+  line-height: 20px;
+}
 </style>

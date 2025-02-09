@@ -12,10 +12,10 @@ const formConfig = reactive({
   amount: true,
   subjectHelper: false,
 })
-const currentDate = ref<Date>(new Date(2022, 4, 10, 10, 10))
+const currentDate = ref<Date>(new Date())
 const formData = reactive({
   bill_type: '',
-  month: dayjs().format('YYYY-MM'),
+  month: dayjs(currentDate.value).format('YYYY-MM'),
 })
 
 const queryConfig = reactive({
@@ -23,8 +23,12 @@ const queryConfig = reactive({
 })
 
 const summary = reactive({
-  income: 0,
-  expense: 0,
+  summary: {
+    income: 0,
+    expense: 0,
+  },
+  categories: [],
+
 })
 
 const API = new Bills()
@@ -35,8 +39,9 @@ function init() {
   }
   queryConfig.loading = true
   API.summary(formData).then((response) => {
-    summary.income = response.data?.data?.income || 0
-    summary.expense = response.data?.data?.expense || 0
+    summary.summary.income = response.data?.data?.summary?.income || 0
+    summary.summary.expense = response.data?.data?.summary?.expense || 0
+    summary.categories = response.data?.data?.categories || []
   }).finally(() => {
     queryConfig.loading = false
   })
@@ -70,7 +75,8 @@ onLoad(() => {
         </nut-radio-group>
       </nut-col>
       <nut-col span="12" class="flex items-center justify-center">
-        <span>{{ formData.month }}</span><nut-icon name="triangle-down" @click="formConfig.bill_time = true" />
+        <span>{{ formData.month }}</span>
+        <nut-icon name="triangle-down" @click="formConfig.bill_time = true" />
 
         <nut-popup
           v-model:visible="formConfig.bill_time"
@@ -91,7 +97,7 @@ onLoad(() => {
       <nut-col :span="12">
         <div class="flex-content">
           <p class="text-center">
-            <nut-price style="color: #4cd964" :price="summary.income" size="large" :need-symbol="true" />
+            <nut-price style="color: #4cd964" :price="summary.summary.income" size="large" :need-symbol="true" />
           </p>
           <p class="text-center">
             <span class="text-gray-600">收入</span>
@@ -101,12 +107,30 @@ onLoad(() => {
       <nut-col :span="12">
         <div class="flex-content">
           <p class="text-center">
-            <nut-price :price="summary.expense" size="large" :need-symbol="true" />
+            <nut-price :price="summary.summary.expense" size="large" :need-symbol="true" />
           </p>
           <p class="text-center">
             <span class="text-gray-600">支出</span>
           </p>
         </div>
+      </nut-col>
+
+      <nut-col v-if="summary.categories.length > 0">
+        <nut-cell-group>
+          <nut-cell
+            v-for="(category, index) in summary.categories" :key="index"
+            :title="category.bill_category"
+          >
+            <template #desc>
+              <nut-price
+                :symbol="category.bill_type === 'income' ? '+' : '-'"
+                :price="category.amount_value"
+                :style="{ color: category.bill_type === 'income' ? '#4cd964' : null }"
+                :need-symbol="true"
+              />
+            </template>
+          </nut-cell>
+        </nut-cell-group>
       </nut-col>
     </nut-row>
   </view>

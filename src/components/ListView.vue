@@ -128,6 +128,10 @@ async function getList() {
 function clickCreate() {
   emit('clickCreate')
   // 判断是否配置 路径 或者 调用回掉函数
+
+  uni.$once(`${props.name}:create:success`, () => {
+    init()
+  })
   uni.navigateTo({
     url: props.createAction.path,
   })

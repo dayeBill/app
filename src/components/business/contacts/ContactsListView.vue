@@ -24,7 +24,7 @@ onLoad(() => {
 
 <template>
   <ListView
-    name="contacts"
+    :name="API.name"
     :api="API.getPath()"
     :view-model="props.viewModel"
     :create-action="{ path: '/pages/contacts/create', icon: 'plus' }"

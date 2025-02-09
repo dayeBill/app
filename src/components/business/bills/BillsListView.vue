@@ -11,7 +11,7 @@ const pageHelpers = reactive({
 })
 
 onLoad(() => {
-  new ResourceApi().options().then((response) => {
+  API.options().then((response) => {
     pageHelpers.eventTypes = response.data.data.eventTypes || []
   })
 })
@@ -31,7 +31,7 @@ function title(item) {
 
 <template>
   <ListView
-    name="bills"
+    :name="API.name"
     :api="API.getPath()"
     :create-action="{ path: '/pages/bills/create', icon: 'plus' }"
   >
@@ -49,12 +49,13 @@ function title(item) {
         </template>
         <template #title>
           <p>
-            {{ title(item) }}
+            {{ item.contact?.name || '-' }}
           </p>
           <p>
             <nut-tag type="primary">
               {{ item.bill_category }}
             </nut-tag>
+            {{ item.subject }}
             <nut-tag v-if="item.pay_method" custom-color="#e9e9e9" text-color="#999999">
               {{ item.pay_method }}
             </nut-tag>
@@ -65,7 +66,7 @@ function title(item) {
             <nut-price
               :symbol="item.bill_type === 'income' ? '+' : '-'"
               :price="item.amount_value"
-              :style="{ color: item.bill_type === 'income' ? '#121212' : '' }"
+              :style="{ color: item.bill_type === 'income' ? '#4cd964' : '' }"
               :need-symbol="true"
             />
           </p>

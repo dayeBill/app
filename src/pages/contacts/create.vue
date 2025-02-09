@@ -18,7 +18,7 @@ function validate(item: any) {
 }
 
 const form = ref<FormInst | null>(null)
-
+const API = new ResourceApi()
 function submit() {
   form.value?.validate().then(({ valid, errors }) => {
     if (valid) {
@@ -26,11 +26,12 @@ function submit() {
         return
       formConfig.loading = true
 
-      new ResourceApi().create(formData).then((response) => {
+      API.create(formData).then((response) => {
         emit('success', response.data.data)
         toast.success('创建成功', {
           duration: 1000,
           onClosed: () => {
+            uni.$emit(`${API.name}:create:success`)
             uni.navigateBack({
               delta: 1,
             })
@@ -71,7 +72,7 @@ const pageHelpers = reactive({
 })
 
 onLoad(() => {
-  new ResourceApi().options().then((response) => {
+  API.options().then((response) => {
     pageHelpers.relationTypes = response.data.data.relationTypes
   })
 })

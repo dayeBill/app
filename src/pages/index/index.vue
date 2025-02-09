@@ -3,12 +3,7 @@ import BillsSummary from '@/components/business/bills/BillsSummary.vue'
 </script>
 
 <template>
-  <HeaderWrapper>
-    <div class="mx-auto h-full flex items-center justify-center">
-      统计
-    </div>
-  </HeaderWrapper>
-  <view class="summary pt-100">
+  <view class="pt-100">
     <BillsSummary />
   </view>
 </template>
@@ -16,8 +11,8 @@ import BillsSummary from '@/components/business/bills/BillsSummary.vue'
 <route lang="json">
 {
 "style": {
-"navigationStyle": "custom",
-"navigationBarTitleText": "首页"
+"navigationStyle": "default",
+"navigationBarTitleText": "统计"
 }
 }
 </route>

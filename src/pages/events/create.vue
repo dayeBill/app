@@ -9,7 +9,7 @@ import { defineEmits, reactive } from 'vue'
 
 const emit = defineEmits(['success'])
 const toast = useToast()
-
+const API = new Events()
 const formConfig = reactive({
   loading: false,
   event_date: false,
@@ -28,11 +28,12 @@ function submit() {
         return
       formConfig.loading = true
 
-      new Events().create(formData).then((response) => {
+      API.create(formData).then((response) => {
         emit('success', response.data.data)
         toast.success('创建成功', {
           duration: 1000,
           onClosed: () => {
+            uni.$emit(`${API.name}:create:success`)
             uni.navigateBack({
               delta: 1,
             })

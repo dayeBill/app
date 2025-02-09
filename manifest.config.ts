@@ -9,6 +9,7 @@ export default defineManifestConfig({
   'transformPx': false,
   'mp-weixin': {
     appid: 'wx0b62fa054dc7febb',
+    mergeVirtualHostAttributes: true,
     setting: {
       urlCheck: false,
       es6: true,
@@ -21,7 +22,7 @@ export default defineManifestConfig({
     lazyCodeLoading: 'requiredComponents',
     darkmode: true,
     themeLocation: 'theme.json',
-    libVersion: '3.4.3',
+    libVersion: '3.7.7',
 
   },
   /* 5+App特有相关 */

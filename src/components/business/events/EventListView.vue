@@ -2,8 +2,14 @@
 import { Events as ResourceApi } from '@/api/events'
 import ListView from '@/components/ListView.vue'
 import { onLoad } from '@dcloudio/uni-app'
-import { reactive } from 'vue'
+import { defineProps, reactive } from 'vue'
 
+const props = defineProps({
+  viewModel: {
+    type: String,
+    default: 'view',
+  },
+})
 const API = new ResourceApi()
 const pageHelpers = reactive({
   eventTypes: [],
@@ -18,9 +24,9 @@ onLoad(() => {
 
 <template>
   <ListView
+    :view-model="props.viewModel"
     name="events"
     :api="API.getPath()"
-
     :create-action="{ path: '/pages/events/create', icon: 'plus' }"
   >
     <template #default="{ item, index }">

@@ -178,17 +178,19 @@ function onCheckbox(value: any) {
     </nut-searchbar>
   </nut-sticky>
   <nut-checkbox-group
-    ref="group"
     v-model="selects.ids"
+    class="w-full"
     @change="onCheckbox"
   >
-    <view v-for="(item, index) in data.items" :key="index" class="flex">
+    <view v-for="(item, index) in data.items" :key="index" class="w-full flex">
       <nut-checkbox
         v-if="viewModel === 'select'"
         :label="item.id"
-        class="list-view-select"
+        class="ml-30 leading-2 !mr-0"
       />
-      <slot :index="index" :item="item" />
+      <view class="w-full">
+        <slot :index="index" :item="item" />
+      </view>
     </view>
   </nut-checkbox-group>
   <nut-divider v-if="data.bottomLoading">
@@ -198,9 +200,5 @@ function onCheckbox(value: any) {
 </template>
 
 <style scoped>
-.list-view-select{
-  margin-right: 0px;
-  margin-left: 10px;
-  line-height: 20px;
-}
+
 </style>

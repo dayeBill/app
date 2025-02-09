@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Bills as ResourceApi } from '@/api/bills'
 import ListView from '@/components/ListView.vue'
+import { isWhitespace } from '@/utils/is'
 import { onLoad } from '@dcloudio/uni-app'
 import { reactive } from 'vue'
 
@@ -16,10 +17,15 @@ onLoad(() => {
 })
 
 function title(item) {
-  return [
+  const title = [
     item.contact?.name,
     item.subject,
-  ].join(' ')
+  ].join('')
+
+  if (isWhitespace(title)) {
+    return '-'
+  }
+  return title
 }
 </script>
 
@@ -37,7 +43,8 @@ function title(item) {
             custom-color="rgb(245, 106, 0)"
             bg-color="rgb(253, 227, 207)"
           >
-            {{ item.contact?.name || '-' }}
+            <span v-if="item.contact">{{ item.contact?.name || '-' }}</span>
+            <nut-icon v-else name="my" />
           </nut-avatar>
         </template>
         <template #title>
@@ -45,11 +52,11 @@ function title(item) {
             {{ title(item) }}
           </p>
           <p>
-            <nut-tag v-if="item.event" custom-color="#e9e9e9" text-color="#999999">
+            <nut-tag type="primary">
               {{ item.bill_category }}
             </nut-tag>
-            <nut-tag custom-color="#e9e9e9" text-color="#999999">
-              {{ item.bill_category }}
+            <nut-tag v-if="item.pay_method" custom-color="#e9e9e9" text-color="#999999">
+              {{ item.pay_method }}
             </nut-tag>
           </p>
         </template>

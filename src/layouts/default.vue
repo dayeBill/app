@@ -19,32 +19,32 @@ const size = ref('24rpx')
 const List = [
   {
     pagePath: 'pages/index/index',
-    text: '首页',
-    icon: 'home',
+    text: '统计',
+    icon: '/static/images/logo.png',
     name: 'home',
   },
   {
     pagePath: 'pages/bills/index',
-    text: '账单',
-    icon: 'order',
+    text: '明细',
+    icon: '/static/images/tabbars/bill.png',
     name: 'bill',
   },
   {
     pagePath: 'pages/contacts/index',
     text: '联系人',
-    icon: 'people',
+    icon: '/static/images/tabbars/contact.png',
     name: 'contacts',
   },
   {
     pagePath: 'pages/events/index',
     text: '事件',
-    icon: 'addfollow',
+    icon: '/static/images/tabbars/book.png',
     name: 'events',
   },
   {
     pagePath: 'pages/my/index',
     text: '我的',
-    icon: 'my',
+    icon: '/static/images/tabbars/user.png',
     name: 'my',
   },
 ]
@@ -62,8 +62,6 @@ onShow(async () => {
 })
 
 function changeTab(_: any, index: number | string) {
-  console.log('....测试', _.name)
-
   const pagePath = List.find(item => item.name === _.name)?.pagePath
   uni.switchTab({
     url: `/${pagePath}`,

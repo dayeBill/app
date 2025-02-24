@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { getUserInfo } from '@/api/user'
-import { onMounted, ref } from 'vue' // 假设有一个获取用户信息的API
-
+import vip from '@/packages/vip/components/vip.vue' // 假设有一个获取用户信息的API
+import { onMounted, ref } from 'vue'
 // 定义用户信息的响应式变量
 const userInfo = ref({
   nickname: '请登录',
@@ -62,8 +62,9 @@ onMounted(async () => {
       100
     </nut-grid-item>
   </nut-grid>
-  <nut-cell title="服务" is-link icon="setting" />
 
+  <nut-cell title="服务" is-link icon="setting" />
+  <vip type="vip" app-id="bill" />
   <nut-cell-group>
     <nut-cell title="收藏" is-link icon="setting" />
     <nut-cell title="收藏" is-link icon="setting" />

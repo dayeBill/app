@@ -17,30 +17,7 @@ const unColor = ref('#84929A')
 const size = ref('24rpx')
 
 const List = [
-  {
-    pagePath: 'pages/index/index',
-    text: '账单',
-    icon: 'order',
-    name: 'home',
-  },
-  {
-    pagePath: 'pages/contacts/index',
-    text: '联系人',
-    icon: 'people',
-    name: 'contacts',
-  },
-  {
-    pagePath: 'pages/events/index',
-    text: '事件',
-    icon: 'addfollow',
-    name: 'events',
-  },
-  {
-    pagePath: 'pages/my/index',
-    text: '我的',
-    icon: 'my',
-    name: 'my',
-  },
+
 ]
 
 onShow(async () => {

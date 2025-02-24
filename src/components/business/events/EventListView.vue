@@ -16,7 +16,7 @@ const pageHelpers = reactive({
 })
 
 onLoad(() => {
-  new ResourceApi().options().then((response) => {
+  new ResourceApi().enums().then((response) => {
     pageHelpers.eventTypes = response.data.data.eventTypes
   })
 })

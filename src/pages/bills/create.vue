@@ -121,7 +121,7 @@ onLoad(() => {
     formData.event = values[0]
   })
 
-  new ResourceApi().options().then((response) => {
+  new ResourceApi().enums().then((response) => {
     pageHelpers.categories = response.data.data.categories
   })
 })
@@ -239,10 +239,10 @@ function inputAmount(options) {
         />
       </nut-popup>
     </nut-form-item>
-    <nut-form-item label="事件" prop="event_id">
+    <nut-form-item label="礼簿" prop="event_id">
       <nut-input
         v-model="formData.event_name"
-        class="nut-input-text" placeholder="选择事件"
+        class="nut-input-text" placeholder="选择礼簿"
         readonly type="text" @click-input="toSelectEventsPage"
       >
         <template #right>
@@ -360,10 +360,10 @@ function inputAmount(options) {
         />
       </nut-popup>
     </nut-form-item>
-    <nut-form-item label="事件" prop="event_id">
+    <nut-form-item label="礼簿" prop="event_id">
       <nut-input
         v-model="formData.event_name"
-        class="nut-input-text" placeholder="选择事件"
+        class="nut-input-text" placeholder="选择礼簿"
         readonly type="text" @click-input="toSelectEventsPage"
       >
         <template #right>

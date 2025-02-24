@@ -16,7 +16,7 @@ const pageHelpers = reactive({
 })
 
 onLoad(() => {
-  API.options().then((response) => {
+  API.enums().then((response) => {
     pageHelpers.relationTypes = response.data.data.relationTypes || []
   })
 })

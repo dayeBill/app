@@ -73,7 +73,7 @@ const pageHelpers = reactive({
 })
 
 onLoad(() => {
-  new Events().options().then((response) => {
+  new Events().enums().then((response) => {
     pageHelpers.eventTypes = response.data.data.eventTypes
   })
 })
@@ -126,7 +126,7 @@ onLoad(() => {
 "layout":"base",
 "style": {
 "navigationStyle": "default",
-"navigationBarTitleText": "事件"
+"navigationBarTitleText": "礼簿"
 }
 }
 </route>

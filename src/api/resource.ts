@@ -30,8 +30,8 @@ export default class {
     return this.request.delete(`${this.path}/${id}`)
   }
 
-  options() {
-    return this.request.get(`${this.path}/options`)
+  enums() {
+    return this.request.get(`${this.path}/enums`)
   }
 
   getPath() {

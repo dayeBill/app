@@ -37,16 +37,16 @@ const List = [
   },
   {
     pagePath: 'pages/events/index',
-    text: '事件',
+    text: '礼簿',
     icon: '/static/images/tabbars/book.png',
     name: 'events',
   },
-  // {
-  //   pagePath: 'pages/my/index',
-  //   text: '我的',
-  //   icon: '/static/images/tabbars/user.png',
-  //   name: 'my',
-  // },
+  {
+    pagePath: 'pages/my/index',
+    text: '我的',
+    icon: '/static/images/tabbars/user.png',
+    name: 'my',
+  },
 ]
 
 onShow(async () => {

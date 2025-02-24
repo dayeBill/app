@@ -11,7 +11,7 @@ import EventListView from '@/components/business/events/EventListView.vue'
 "layout":"base",
 "style": {
 "navigationStyle": "default",
-"navigationBarTitleText": "选择事件",
+"navigationBarTitleText": "选择礼簿",
 "enablePullDownRefresh":true
 }
 }

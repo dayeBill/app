@@ -81,6 +81,7 @@ onMounted(async () => {
 
 <route lang="json">
 {
+"middleware": ["auth"],
 "style": {
 "navigationStyle": "default",
 "navigationBarTitleText": "我的"

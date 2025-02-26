@@ -10,6 +10,7 @@ import BillsSummary from '@/components/business/bills/BillsSummary.vue'
 
 <route lang="json">
 {
+"middleware": ["auth"],
 "style": {
 "navigationStyle": "default",
 "navigationBarTitleText": "统计"

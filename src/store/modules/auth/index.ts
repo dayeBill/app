@@ -10,8 +10,12 @@ export const useAuthStore = defineStore('auth', () => {
   const clearToken = () => {
     token.value = DefaultToken
   }
+  const isLogin = () => {
+    return token.value
+  }
   return {
     token,
+    isLogin,
     setToken,
     clearToken,
   }

@@ -7,9 +7,6 @@ export default defineUniPages({
     {
       path: 'pages/index/index',
     },
-    {
-      path: 'uni_modules/red-jasmine-auth/pages/login/login',
-    },
   ],
   globalStyle: {
     navigationBarBackgroundColor: '@navBgColor',

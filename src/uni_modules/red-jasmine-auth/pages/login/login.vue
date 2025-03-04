@@ -1,22 +1,21 @@
-<script lang="ts" setup>
-
+<script setup lang="ts">
 </script>
 
 <template>
-  login
+  登录
 </template>
 
 <route  lang="json">
 {
-"layout":"default",
+"layout":"base",
 "style": {
 "navigationStyle": "default",
-"navigationBarTitleText": "VIP",
+"navigationBarTitleText": "登录",
 "enablePullDownRefresh":false
 }
 }
 </route>
 
-<style>
+<style scoped>
 
 </style>

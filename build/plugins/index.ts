@@ -16,8 +16,14 @@ export function setupVitePlugins(): PluginOption[] {
       mergePages: true,
       minify: true,
       dts: resolve(getRootPath(), 'typings/uni-pages.d.ts'),
+      subPackages:[
+        'src/uni_modules/red-jasmine-auth/pages',
+        'src/uni_modules/red-jasmine-vip/pages',
+        'src/uni_modules/red-jasmine-payment/pages',
+      ],
     }),
-    uniLayouts(),
+    uniLayouts(
+    ),
     ...unplugins,
     restart({
       restart: [

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { onLoad } from '@dcloudio/uni-app'
 import qs from 'qs'
 import { reactive } from 'vue'
@@ -22,6 +22,8 @@ onLoad((options) => {
   // 查询 会员
   API.vipDetail(query.app_id, query.type).then((response) => {
     console.log('VIP', response)
+
+    data.vip = response.data.data
   })
 
   API.products(query.app_id, query.type).then((response) => {
@@ -55,31 +57,36 @@ function clickBuyButton() {
 </script>
 
 <template>
-  <nut-row class="min-h-5xl bg-blue">
-    <nut-col :span="24">
-      <div class="flex-content">
-        span:24
-      </div>
-    </nut-col>
-  </nut-row>
-  <nut-row :style="{ marginTop: '-20px' }" type="flex" justify="center">
-    <nut-col :span="20">
-      <nut-grid>
-        <nut-grid-item text="文字">
-          <nut-icon name="dongdong" />
-        </nut-grid-item>
-        <nut-grid-item text="文字">
-          <nut-icon name="dongdong" />
-        </nut-grid-item>
-        <nut-grid-item text="文字">
-          <nut-icon name="dongdong" />
-        </nut-grid-item>
-        <nut-grid-item text="文字">
-          <nut-icon name="dongdong" />
-        </nut-grid-item>
-      </nut-grid>
-    </nut-col>
-  </nut-row>
+  <view v-if="data.vip">
+    <view class="min-h-4xl bg-blue" justify="center" type="flex">
+      <nut-row :style="{ paddingTop: '40px' }" justify="center" type="flex">
+        <nut-col :span="20">
+          {{ data.vip.name }}
+        </nut-col>
+      </nut-row>
+    </view>
+
+    <view :style="{ marginTop: '-60px' }">
+      <nut-row justify="center" type="flex">
+        <nut-col :span="20">
+          <nut-cell>
+            <p>{{ data.vip.description }}</p>
+          </nut-cell>
+        </nut-col>
+      </nut-row>
+      <nut-row justify="center" type="flex">
+        <nut-col :span="20">
+          <nut-grid>
+            <nut-grid-item
+              v-for="(privilege, index) in data.vip.extras.privileges || []"
+              :key="index"
+              :text="privilege.title"
+            />
+          </nut-grid>
+        </nut-col>
+      </nut-row>
+    </view>
+  </view>
   <nut-row class="mt-24">
     <nut-col :span="24">
       <view>
@@ -89,11 +96,13 @@ function clickBuyButton() {
             class="flex-content text-36rp mr-10 inline-block h-300 w-30/100 border-2 border-gray border-solid text-center"
             @click="selectProduct = product.id"
           >
-            <p>{{ product.name }}</p>
-            <p>
-              <nut-price :price="product.price.value" />
-            </p>
-            <p> {{ product.time_value }} {{ product.time_unit_label }}</p>
+            <view>
+              <p>{{ product.name }}</p>
+              <p>
+                <nut-price :price="product.price.value" />
+              </p>
+              <p> {{ product.time_value }} {{ product.time_unit_label }}</p>
+            </view>
           </view>
         </scroll-view>
       </view>
@@ -117,7 +126,7 @@ function clickBuyButton() {
 }
 </style>
 
-<route  lang="json">
+<route lang="json">
 {
 "layout":"base",
 "style": {

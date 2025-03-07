@@ -20,6 +20,7 @@ export function setupVitePlugins(): PluginOption[] {
         'src/uni_modules/red-jasmine-auth/pages',
         'src/uni_modules/red-jasmine-vip/pages',
         'src/uni_modules/red-jasmine-payment/pages',
+        'src/uni_modules/red-jasmine-user/pages',
       ],
     }),
     uniLayouts(

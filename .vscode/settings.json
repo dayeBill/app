@@ -62,5 +62,6 @@
     "jsonc",
     "yaml"
   ],
-  "vue.codeActions.enabled": false
+  "vue.codeActions.enabled": false,
+  "editor.fontSize": 20
 }

@@ -7,8 +7,8 @@ import * as API from '../api/api'
 const props = defineProps({
   appId: {
     type: {
-      type: String,
-      default: '',
+      type: [String, null],
+      default: null,
     },
   },
   type: {

@@ -48,7 +48,7 @@ onMounted(async () => {
       </div>
     </nut-col>
   </nut-row>
-  <nut-grid class="mt-50" :border="false">
+  <nut-grid v-if="false" class="mt-50" :border="false">
     <nut-grid-item text="我的收藏">
       0
     </nut-grid-item>
@@ -62,21 +62,34 @@ onMounted(async () => {
       100
     </nut-grid-item>
   </nut-grid>
-
-  <nut-cell title="服务" is-link icon="setting" />
   <vip type="vip" app-id="bill" />
-  <nut-cell-group>
-    <nut-cell title="收藏" is-link icon="setting" />
-    <nut-cell title="收藏" is-link icon="setting" />
-    <nut-cell title="收藏" is-link icon="setting" />
-    <nut-cell title="收藏" is-link icon="setting" />
-  </nut-cell-group>
-  <nut-cell-group>
-    <nut-cell title="收藏" is-link icon="setting" />
-    <nut-cell title="收藏" is-link icon="setting" />
-  </nut-cell-group>
+  <nut-cell class="nut-grid-cel tools-view">
+    <nut-grid :border="false">
+      <nut-grid-item text="共享记账">
+        <image src="/static/images/tools/sync.png" style="width: 40px;height: 40px" />
+      </nut-grid-item>
+      <nut-grid-item text="会员">
+        <image src="/static/images/tools/vip.png" style="width: 40px;height: 40px" />
+      </nut-grid-item>
 
-  <nut-cell title="设置" is-link icon="setting" to="/pages/my/user-base-info" />
+      <nut-grid-item text="导入">
+        <image src="/static/images/tools/upload.png" style="width: 40px;height: 40px" />
+      </nut-grid-item>
+      <nut-grid-item text="导出">
+        <image src="/static/images/tools/download.png" style="width: 40px;height: 40px" />
+      </nut-grid-item>
+      <nut-grid-item text="统计">
+        <image src="/static/images/tools/counts.png" style="width: 40px;height: 40px" />
+      </nut-grid-item>
+      <nut-grid-item text="账户安全">
+        <image src="/static/images/tools/security.png" style="width: 40px;height: 40px" />
+      </nut-grid-item>
+      <nut-grid-item text="设置">
+        <image src="/static/images/tools/setting.png" style="width: 40px;height: 40px" />
+      </nut-grid-item>
+    </nut-grid>
+  </nut-cell>
+  <nut-cell v-if="false" title="设置" is-link icon="setting" to="/uni_modules/red-jasmine-user/pages/setting/index" />
 </template>
 
 <route lang="json">

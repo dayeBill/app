@@ -14,6 +14,7 @@
 // import 'core-js/actual/string/pad-start'; // since 2.16.1
 // import 'core-js/actual/string/replace-all'
 
+import { develop } from '@/directives/develop'
 import { setupStore } from '@/store'
 // since 2.16.1 but consider other platforms
 // import 'core-js/actual/string/trim-end'
@@ -26,6 +27,7 @@ import '@/styles/reset.css'
 
 export function createApp() {
   const app = createSSRApp(App).use(dayjsPlugin).use(vueQueryPlugin)
+  app.directive('develop', develop)
   setupStore(app)
   return {
     app,

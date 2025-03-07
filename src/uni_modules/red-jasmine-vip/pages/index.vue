@@ -11,6 +11,7 @@ const query = reactive({
 const data = reactive({
   products: [],
   vip: null,
+
 })
 const selectProduct = ref(null)
 
@@ -74,7 +75,7 @@ function clickBuyButton() {
           </nut-cell>
         </nut-col>
       </nut-row>
-      <nut-row justify="center" type="flex">
+      <nut-row class="mt-0" justify="center" type="flex">
         <nut-col :span="20">
           <nut-grid>
             <nut-grid-item
@@ -93,7 +94,13 @@ function clickBuyButton() {
         <scroll-view class="w-full whitespace-nowrap" scroll-x="true" @scroll="scroll">
           <view
             v-for="(product, index) in data.products" :key="index"
-            class="flex-content text-36rp mr-10 inline-block h-300 w-30/100 border-2 border-gray border-solid text-center"
+
+            class="flex-content text-36rp mr-10 inline-block h-300 w-28/100 border-2 rounded-20 rounded-tr-60 border-solid text-center"
+            :class="{
+              'border-blue': selectProduct === product.id,
+              'border-gray': selectProduct !== product.id,
+              'bg-blue': selectProduct === product.id,
+            }"
             @click="selectProduct = product.id"
           >
             <view>

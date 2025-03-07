@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { getUserInfo } from '@/api/user'
-import vip from '@/packages/vip/components/vip.vue' // 假设有一个获取用户信息的API
+import vip from '@/uni_modules/red-jasmine-vip/components/vip.vue' // 假设有一个获取用户信息的API
 import { onMounted, ref } from 'vue'
 // 定义用户信息的响应式变量
 const userInfo = ref({

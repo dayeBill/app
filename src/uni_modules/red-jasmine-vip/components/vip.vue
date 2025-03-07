@@ -37,7 +37,7 @@ onLoad(() => {
 
 function clickOpenButton() {
   uni.navigateTo({
-    url: `/pages/vip/vip?app_id=${props.appId}&type=${props.type}`,
+    url: `/uni_modules/red-jasmine-vip/pages/index?app_id=${props.appId}&type=${props.type}`,
   })
 }
 </script>

@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { onLoad } from '@dcloudio/uni-app'
 import * as API from '../api/api'
+import { convertingPlatform } from '../utils/payment'
 
 const data = reactive({
+  init: false,
   merchant_app_id: null,
   trade_no: null,
   trade: null,
@@ -20,7 +22,7 @@ function getPaymentInfo() {
   }
   const client = {
     type: null,
-    platform: API.Platform.Other,
+    platform: convertingPlatform(),
   }
 
   // 小程序平台
@@ -28,22 +30,11 @@ function getPaymentInfo() {
   // 获取当前应用的 信息
   scene = API.Scene.Jsapi
 
-  console.log(uni.getSystemInfoSync().uniPlatform)
-  console.log(uni.getAccountInfoSync())
-
   payer.appId = uni.getAccountInfoSync()?.miniProgram?.appId || null
   payer.openId = '' // 如何获取Open Id
 
   client.type = API.Type.Applet
 
-  // #endif
-
-  // #ifdef MP-WEIXIN
-  client.platform = API.Platform.Wechat
-  // #endif
-
-  // #ifdef MP-ALIPAY
-  client.platform = API.Platform.Alipay
   // #endif
 
   // #ifdef WEB
@@ -72,12 +63,14 @@ function initTrade(trade) {
   data.trade = trade
 
   if (data.trade.methods.length > 0) {
-    data.selectMethod = data.trade.methods[0].name
+    data.selectMethod = data.trade.methods[0].code
   }
 
   if (data.trade.methods.length === 1) {
-    clickPay()
+    // clickPay()
   }
+
+  data.init = true
 }
 
 onLoad((options) => {
@@ -114,6 +107,7 @@ function clickPay() {
 </script>
 
 <template>
+  <nut-loading-page :loading="!data.init" />
   <view v-if="data.trade">
     <nut-row class="mt-50">
       <nut-col :span="24" flex justify="center">
@@ -127,7 +121,7 @@ function clickPay() {
       <nut-form-item label="单号">
         <nut-input readonly :model-value="data.trade.trade_no" type="text" />
       </nut-form-item>
-      <nut-form-item label="主题">
+      <nut-form-item label="标题">
         <nut-input readonly :model-value="data.trade.subject" type="text" />
       </nut-form-item>
 
@@ -137,12 +131,13 @@ function clickPay() {
           <nut-grid-item
             v-for=" (method, index) in (data.trade.methods || [])"
             :key="method.code"
-            class="border rounded-5 border-solid"
+            class="border border-1 border-solid"
             :class="{
-              'border-red': data.selectMethod === method.name,
+              'border-black': data.selectMethod === method.code,
             }" :text="method.name"
           >
-            <nut-icon v-if="method.icon" :name="method.icon" />
+            <image class="h-80 w-80" :src="`../static/methods/${method.code}.png`" />
+            <!--            <nut-icon :name="`../static/methods/${method.code}.png`" /> -->
           </nut-grid-item>
         </nut-grid>
       </nut-row>

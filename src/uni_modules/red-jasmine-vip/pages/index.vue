@@ -99,7 +99,7 @@ function clickBuyButton() {
             :class="{
               'border-blue': selectProduct === product.id,
               'border-gray': selectProduct !== product.id,
-              'bg-blue': selectProduct === product.id,
+              'bg-blue-100': selectProduct === product.id,
             }"
             @click="selectProduct = product.id"
           >

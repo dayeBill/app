@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import login from '@/uni_modules/red-jasmine-auth/common/auth'
+import { onShow } from '@dcloudio/uni-app'
+
+onShow(() => {
+  // #ifdef MP
+  login.login()
+  // #endif
+})
 </script>
 
 <template>

@@ -1,9 +1,21 @@
-import { login as loginApi, userInfo as UserInfoApi } from '@/api/auth'
-import { useAuthStore } from '@/store'
+import { login as loginApi, userInfo as UserInfoApi } from '../api/auth'
+import { useAuthStore } from '../store/auth'
 
 export default {
 
-  checkLogin() {},
+  check() {
+    const auth = useAuthStore()
+    if (auth.isLogin()) {
+      return true
+    }
+    // 判断当前页面是否需要登录
+
+    // 跳转登录页面
+    console.log('未登录')
+    uni.navigateTo({
+      url: '/uni_modules/red-jasmine-auth/pages/login/login',
+    })
+  },
 
   async login() {
     // 判断平台  如果是小程序 那么就执行小程序登录

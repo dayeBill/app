@@ -75,12 +75,13 @@ export interface Device {
 export function getDevice(): Device {
   try {
     const systemInfo = uni.getSystemInfoSync()
+    console.log(systemInfo)
     return {
       brand: systemInfo.brand || null,
       extensions: null,
       id: systemInfo.deviceId || null,
       language: systemInfo.language || null,
-      model: systemInfo.model || null,
+      model: systemInfo.deviceModel || null,
       os: systemInfo.platform || null,
       token: null, // 根据实际情况设置
       version: systemInfo.version || null,
@@ -173,6 +174,7 @@ export function getPaymentEnvironment(): PaymentEnvironment {
   return {
     client: getClient(),
     scene: getScene(),
+    device: getDevice(),
 
   }
 }

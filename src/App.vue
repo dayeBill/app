@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import login from '@/common/login'
 import { useAppStore, useAuthStore } from '@/store'
+import login from '@/uni_modules/red-jasmine-auth/common/auth'
+import { interceptor } from '@/uni_modules/red-jasmine-auth/common/interceptor'
+import { onError, onExit, onHide, onLaunch, onPageNotFound, onShow } from '@dcloudio/uni-app'
 
 const { darkMode, statusBarHeight, menuButtonBounding } = storeToRefs(useAppStore())
 const auth = useAuthStore()
@@ -33,29 +35,25 @@ onLaunch(() => {
   }
   // #endif
 
-  const routeInterceptor = {
-    invoke(options) {
-      // 在路由跳转前执行逻辑
-      console.log('路由跳转前执行逻辑:', options, auth.isLogin())
-      const url = options.url.split('?')[0] // 获取要跳转的页面路径
-
-      return true // 允许原始路由跳转
-    },
-    fail(err) {
-      // 处理跳转失败的情况
-      console.log('路由跳转失败:', err)
-    },
-  };
-  ['navigateTo', 'redirectTo', 'reLaunch', 'switchTab'].forEach((method) => {
-    uni.addInterceptor(method, routeInterceptor)
-  })
+  interceptor()
 })
 onShow(() => {
   // #ifdef MP
-  login.login()
+  login.check()
   // #endif
 })
 onHide(() => {
+})
+onError((error) => {
+  // 上报错误
+  console.log('onError', error)
+})
+// 页面不存在 监听
+onPageNotFound(() => {
+  conosle.log('页面不存在')
+})
+onExit(() => {
+  console.log('onExit')
 })
 </script>
 

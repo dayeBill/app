@@ -136,7 +136,7 @@ function clickPay() {
 
 <template>
   <nut-loading-page :loading="!data.init" />
-  <view v-if="data.trade">
+  <view v-if="data.trade" class="pl-10 pr-10">
     <nut-row class="mt-50">
       <nut-col :span="24" flex justify="center">
         <nut-price
@@ -172,10 +172,13 @@ function clickPay() {
           </nut-grid-item>
         </nut-grid>
       </nut-row>
+
+      <nut-form-item class="mt-30">
+        <nut-button block type="primary" @click="clickPay">
+          立即支付
+        </nut-button>
+      </nut-form-item>
     </nut-form>
-    <nut-button block class="mt-30" type="primary" @click="clickPay">
-      立即支付
-    </nut-button>
   </view>
 </template>
 

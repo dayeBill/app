@@ -3,6 +3,7 @@ import login from '@/uni_modules/red-jasmine-auth/common/auth'
 import { onShow } from '@dcloudio/uni-app'
 
 onShow(() => {
+  console.log('login-onShow')
   // #ifdef MP
   login.login()
   // #endif
@@ -15,6 +16,7 @@ onShow(() => {
 
 <route  lang="json">
 {
+"auth":false,
 "layout":"base",
 "style": {
 "navigationStyle": "default",

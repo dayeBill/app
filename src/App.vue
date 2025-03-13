@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useAppStore, useAuthStore } from '@/store'
-import login from '@/uni_modules/red-jasmine-auth/common/auth'
 import { interceptor } from '@/uni_modules/red-jasmine-auth/common/interceptor'
 import { onError, onExit, onHide, onLaunch, onPageNotFound, onShow } from '@dcloudio/uni-app'
 
@@ -39,7 +38,7 @@ onLaunch(() => {
 })
 onShow(() => {
   // #ifdef MP
-  login.check()
+  // login.check()
   // #endif
 })
 onHide(() => {

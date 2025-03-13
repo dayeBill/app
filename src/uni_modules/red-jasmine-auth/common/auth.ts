@@ -71,6 +71,20 @@ export default {
         code: loginRes.code,
       }, true)
       auth.setToken(response?.data?.data?.access_token)
+      // 返回上一个页面
+      console.log('登录成功，需要返回上一个页面')
+      const pages = getCurrentPages()
+      if (pages.length > 1) {
+        uni.navigateBack({
+          delta: 1,
+        })
+      }
+      else {
+        // 如果没有上一页，可以跳转到首页或其他默认页面
+        uni.switchTab({
+          url: '/pages/index/index',
+        })
+      }
     }
     catch (error) {
       console.error('小程序登录失败', error)

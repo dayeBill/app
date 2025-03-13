@@ -21,6 +21,7 @@ onLoad(() => {
 
 <route lang="json">
 {
+"auth":true,
 "style": {
 "navigationStyle": "default",
 "navigationBarTitleText": "联系人",

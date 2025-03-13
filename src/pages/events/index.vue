@@ -8,6 +8,7 @@ import EventListView from '@/components/business/events/EventListView.vue'
 
 <route  lang="json">
 {
+"auth":true,
   "style": {
     "navigationStyle": "default",
     "navigationBarTitleText": "礼簿",

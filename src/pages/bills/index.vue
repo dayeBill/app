@@ -8,6 +8,7 @@ import BillsListView from '@/components/business/bills/BillsListView.vue'
 
 <route  lang="json">
 {
+"auth":true,
 "style": {
 "navigationStyle": "default",
 "navigationBarTitleText": "账单",

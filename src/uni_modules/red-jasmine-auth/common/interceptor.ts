@@ -2,16 +2,16 @@ import { pages, subPackages } from 'virtual:uni-pages'
 import { useAuthStore } from '../store/auth'
 
 function getAllPages() {
-  const allPages: Array = []
+  const allPages: Array<object> = []
 
-  pages.forEach((page) => {
+  pages.forEach((page: object) => {
     page = JSON.parse(JSON.stringify(page))
     // 判断 page.path  是否以 / 开通
     allPages.push(page)
   })
-  subPackages.forEach((subPackage) => {
+  subPackages.forEach((subPackage: object) => {
     subPackage = JSON.parse(JSON.stringify(subPackage))
-    subPackage.pages.forEach((subPackageItem) => {
+    subPackage.pages.forEach((subPackageItem: object) => {
       subPackageItem.path = `${subPackage.root}/${subPackageItem.path}`
       allPages.push(subPackageItem)
     })

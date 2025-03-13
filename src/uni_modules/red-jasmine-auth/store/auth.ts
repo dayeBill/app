@@ -12,7 +12,7 @@ export function useToken(initialToken: string = ''): RemovableRef<string> {
   return token
 }
 
-export const useAuthStore = defineStore('auth', () => {
+export const useAuthStore = defineStore('auths', () => {
   const token = useToken()
   const setToken = (newToken = DefaultToken) => {
     token.value = newToken

@@ -17,7 +17,7 @@ export const DefaultHeaders = {
 }
 
 /** 登录态键 */
-export const TokenKey = `token${PascalCaseViteMode}`
+export const TokenKey = `token`
 /** 默认登录态 */
 export const DefaultToken = ''
 

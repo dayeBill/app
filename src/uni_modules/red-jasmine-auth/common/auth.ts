@@ -70,6 +70,7 @@ export default {
         provider,
         code: loginRes.code,
       }, true)
+
       auth.setToken(response?.data?.data?.access_token)
       // 返回上一个页面
       console.log('登录成功，需要返回上一个页面')

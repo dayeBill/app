@@ -24,6 +24,8 @@ const instance = un.create({
 
 instance.interceptors.request.use((config) => {
   const authStore = useAuthStore()
+  console.log('authStore.token', authStore.token)
+
   config.headers = {
     ...DefaultHeaders,
     Authorization: `Bearer ${authStore.token}`,

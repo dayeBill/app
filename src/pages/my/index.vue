@@ -89,7 +89,7 @@ onMounted(async () => {
       </nut-grid-item>
     </nut-grid>
   </nut-cell>
-  <nut-cell v-if="false" title="设置" is-link icon="setting" to="/uni_modules/red-jasmine-user/pages/setting/index" />
+  <nut-cell title="设置" is-link icon="setting" to="/uni_modules/red-jasmine-user/pages/setting/index" />
 </template>
 
 <route lang="json">
